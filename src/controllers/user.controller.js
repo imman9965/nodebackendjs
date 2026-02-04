@@ -3,6 +3,7 @@ const UserService = require('../services/user.service');
 exports.getUsers = async (req, res) => {
   try {
     const users = await UserService.getAllUsers();
+    // remove password field for safety
     const safe = users.map(u => {
       const { password, ...rest } = u;
       return rest;
