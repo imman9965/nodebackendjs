@@ -1,16 +1,12 @@
 const { Pool } = require("pg");
 
-// ❌ DO NOT use dotenv on Render
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
+// ❌ REMOVE dotenv completely
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
-  max: 5,                   // 🔑 reduce connections
+  ssl: { rejectUnauthorized: false }, // Render requires SSL
+  max: 5,
   idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 10000, // 🔑 increase timeout
+  connectionTimeoutMillis: 10000,
 });
 
 pool.on("connect", () => {
