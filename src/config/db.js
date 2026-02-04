@@ -11,9 +11,10 @@ const pool = new Pool({
     require: true,
     rejectUnauthorized: false,
   },
-  max: 2,                   // safer for Render
-  idleTimeoutMillis: 10000,
-  connectionTimeoutMillis: 20000,
+  max: 4,                   // Use 4 instead of 2 (leave 1 for other processes)
+  idleTimeoutMillis: 30000,  // Increase to 30s
+  connectionTimeoutMillis: 5000, // Reduce to 5s
+  maxUses: 7500,            // Prevent connection exhaustion
 });
 
 pool.on("connect", () => {
